@@ -6,4 +6,4 @@ Node , Express , Json , Uuidv4 , Nodemon
 
 
 # Insomnia
-![ScreenShot](https://raw.github.com/danielofaustino/node-backend/master/screenshots/Insomnia.png)
+![ScreenShot](https://raw.githubusercontent.com/danielofaustino/node-backend/master/screenshots/Insomnia.png)
