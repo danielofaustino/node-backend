@@ -1,16 +1,26 @@
+const { response } = require('express')
 const express = require('express')
-
+const { uuid }= require('uuidv4')
 const app = express()
 
 app.use(express.json())
 
+const projects = []
 
-app.get('/', (req, res)=>{
-    return res.json({
-        message: 'Server Running',
-        name:'Daniel Faustino'
-    })
+app.get('/projects', (req, res)=>{
+    return res.json(projects);
 })
+
+app.post('/projects',(req, res) =>{
+    const {title, owner} = request.body;
+
+    const project = { id: uuid(), title, owner }
+
+    projects.push(project)
+
+    return response.json(project);
+})
+
 
 app.listen(3333,() =>{
     console.log('Back-end Started 🚀')
