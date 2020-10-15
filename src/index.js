@@ -23,10 +23,30 @@ app.post('/projects',(req, res) =>{
 
     projects.push(project)
 
-    return res.json(project);
+    return res.json(project)
 })
 
+app.put('/projects/:id', (req, res) =>{
+    const { id } = req.params
+    const { title, owner } = req.body
 
+
+    const projectIndex = projects.findIndex(project => project.id == id)
+
+    if(projectIndex < 0) {
+        return res.status(400).json({ error: 'Project not found' })
+    }
+    const project = {
+        id,
+        title,
+        owner,
+    }
+
+    projects[projectIndex] = project
+    
+    return res.json(project)
+
+})
 
 
 app.listen(3333,() =>{
