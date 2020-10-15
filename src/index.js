@@ -9,7 +9,7 @@ app.use(express.json())
 const projects = []
 
 
-app.get('/projects', (req, res)=>{
+app.get('/projects', (req, res) => {
     const { title } = req.query
     
     const results = title
@@ -20,7 +20,7 @@ app.get('/projects', (req, res)=>{
 
 })
 
-app.post('/projects',(req, res) =>{
+app.post('/projects',(req, res) => {
 
     const {title, owner} = req.body;
 
@@ -31,7 +31,7 @@ app.post('/projects',(req, res) =>{
     return res.json(project)
 })
 
-app.put('/projects/:id', (req, res) =>{
+app.put('/projects/:id', (req, res) => {
     const { id } = req.params
     const { title, owner } = req.body
 
@@ -53,7 +53,7 @@ app.put('/projects/:id', (req, res) =>{
 
 })
 
-app.delete('/projects/:id', (req, res)=>{
+app.delete('/projects/:id', (req, res) => {
     const { id } = req.params
 
     const projectIndex = projects.findIndex(project => project.id == id)
