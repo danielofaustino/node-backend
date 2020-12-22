@@ -1,13 +1,38 @@
-const { response } = require('express')
-const express = require('express')
-const { uuid }= require('uuidv4')
+const express = require('express');
+const cors = require('cors');
+const { uuid, isUuid } = require('uuidv4')
 
 const app = express()
 
+app.use(cors());
 app.use(express.json())
 
 const projects = []
 
+//Middlewares
+
+function logRequests(req, res, next){
+
+    const { method, url } = req;
+
+    const logLabel = `[${method.toUpperCase()}] ${url}`;
+
+    return next();
+
+}
+
+function validateProjectId(req,res, next){
+    const { id } = req.params;
+
+    if(!isUuid(id)) {
+        return res.status(400).json({ error: 'Invalid project Id.'});
+    }
+
+    return next();
+}
+
+app.use(logRequests);
+app.use('/projects/:id',validateProjectId);
 
 app.get('/projects', (req, res) => {
     const { title } = req.query
@@ -20,7 +45,7 @@ app.get('/projects', (req, res) => {
 
 })
 
-app.post('/projects',(req, res) => {
+app.post('/projects', (req, res) => {
 
     const {title, owner} = req.body;
 
@@ -53,7 +78,7 @@ app.put('/projects/:id', (req, res) => {
 
 })
 
-app.delete('/projects/:id', (req, res) => {
+app.delete('/projects/:id',(req, res) => {
     const { id } = req.params
 
     const projectIndex = projects.findIndex(project => project.id == id)
